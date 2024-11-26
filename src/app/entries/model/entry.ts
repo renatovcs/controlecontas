@@ -4,7 +4,7 @@ export interface Entry {
   category: string;
   amount: number;
   type: string;
-  currency: string; //BRL, USD
+  currency: string; //BRL, USD...
   eventDate: Date;
   //createdAt: Date;
   //deletedAt: Date;

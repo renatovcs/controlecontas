@@ -5,8 +5,6 @@ import { AppMaterialModule } from './app-material/app-material.module';
 import { CategoryPipe } from './pipes/category.pipe';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 
-
-
 @NgModule({
   declarations: [
     ErrorDialogComponent,
@@ -20,7 +18,8 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
   exports: [
     ErrorDialogComponent,
     CategoryPipe,
-    DateFormatPipe
+    DateFormatPipe,
+    AppMaterialModule
   ]
 })
 export class SharedModule { }

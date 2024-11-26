@@ -12,7 +12,7 @@ export class EntriesService {
   //private readonly API = '/assets/entries.json';
   private readonly API = 'api/entries';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private readonly httpClient: HttpClient) { }
 
   list() {
     return this.httpClient.get<Entry[]>(this.API)
@@ -21,5 +21,9 @@ export class EntriesService {
       //delay(5000),
       tap(entries => console.log(entries))
     );
+  }
+
+  save(record: Entry) {
+    return this.httpClient.post<Entry>(this.API, record).pipe(first());
   }
 }

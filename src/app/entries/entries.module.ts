@@ -5,19 +5,21 @@ import { AppMaterialModule } from '../shared/app-material/app-material.module';
 
 import { EntriesRoutingModule } from './entries-routing.module';
 import { EntriesComponent } from './entries/entries.component';
-
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { EntryFormComponent } from './entry-form/entry-form.component';
 
 
 @NgModule({
   declarations: [
-    EntriesComponent
+    EntriesComponent,
+    EntryFormComponent
   ],
   imports: [
     CommonModule,
     EntriesRoutingModule,
     AppMaterialModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class EntriesModule { }
