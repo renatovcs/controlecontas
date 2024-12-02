@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NonNullableFormBuilder } from '@angular/forms';
 import { EntriesService } from '../services/entries.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
@@ -12,20 +12,20 @@ import { Location } from '@angular/common';
 })
 export class EntryFormComponent implements OnInit {
 
-  form: FormGroup;
+  form = this.formBuilder.group({
+    description: [''],
+    category: ['notafiscal'],
+    amount: [0],
+    type: ['DEBIT'],
+    currency: ['BRL'],
+    eventDate: [new Date()]
+  });
 
-  constructor (private readonly formBuilder: FormBuilder,
+  constructor (private readonly formBuilder: NonNullableFormBuilder,
     private readonly service: EntriesService,
     private readonly snackBar: MatSnackBar,
     private readonly location: Location) {
-    this.form = this.formBuilder.group({
-      description: [null],
-      category: ['notafiscal'],
-      amount: [null],
-      type: ['DEBIT'],
-      currency: ['BRL'],
-      eventDate: [new Date()]
-    });
+    //this.form
   }
 
   ngOnInit(): void { }

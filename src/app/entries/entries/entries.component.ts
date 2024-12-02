@@ -16,17 +16,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EntriesComponent implements OnInit {
 
   entries$: Observable<Entry[]>;
-  displayedColumns = ['eventDate', 'description', 'category', 'amount', 'actions'];
-
+  //entries: Entry[] =[];
   //entriesService: EntriesService;
 
   constructor(
     private readonly entriesService: EntriesService,
     public dialog: MatDialog,
-    public router: Router,
-    public route: ActivatedRoute
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {
-    // this.entries = []
+    //this.entries = []
     //this.entriesService = new EntriesService();
     this.entries$ = this.entriesService.list()
     .pipe(

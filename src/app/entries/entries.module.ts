@@ -7,12 +7,14 @@ import { EntriesRoutingModule } from './entries-routing.module';
 import { EntriesComponent } from './entries/entries.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntryFormComponent } from './entry-form/entry-form.component';
+import { EntriesListComponent } from './entries-list/entries-list.component';
 
 
 @NgModule({
   declarations: [
     EntriesComponent,
-    EntryFormComponent
+    EntryFormComponent,
+    EntriesListComponent
   ],
   imports: [
     CommonModule,

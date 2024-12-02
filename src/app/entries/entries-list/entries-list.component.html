@@ -1,0 +1,48 @@
+
+<mat-table mat-table [dataSource]="entries">
+
+  <ng-container matColumnDef="eventDate">
+      <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
+      <mat-cell *matCellDef="let entry"> {{ entry.eventDate | dateFormat:'dd/MM/yyyy'}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> Categoria </mat-header-cell>
+      <mat-cell  *matCellDef="let entry"> {{ entry.category }}
+        <mat-icon aria-hidden="false" aria-label="Categoria do lançamento">{{ entry.category | category }}</mat-icon>
+      </mat-cell>
+   </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+    <mat-cell *matCellDef="let entry"> {{ entry.description }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef> Valor R$ </mat-header-cell>
+      <mat-cell *matCellDef="let entry"> {{ entry.amount }} </mat-cell>
+  </ng-container>
+
+  <!--actions-->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="action-column-header">
+      <button mat-mini-fab color="accent" aria-label="Incluir um lançamento">
+        <mat-icon (click)="onAdd()">add</mat-icon>
+      </button>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let entries" class="action-column">
+      <button mat-icon-button color="primary" aria-label="Editar lançamento">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" aria-label="Remover lançamento">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
