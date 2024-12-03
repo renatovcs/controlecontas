@@ -26,13 +26,13 @@
   <!--actions-->
   <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef class="action-column-header">
-      <button mat-mini-fab color="accent" aria-label="Incluir um lançamento">
-        <mat-icon (click)="onAdd()">add</mat-icon>
+      <button mat-mini-fab color="accent" aria-label="Incluir um lançamento" (click)="onAdd()">
+        <mat-icon>add</mat-icon>
       </button>
     </mat-header-cell>
 
-    <mat-cell *matCellDef="let entries" class="action-column">
-      <button mat-icon-button color="primary" aria-label="Editar lançamento">
+    <mat-cell *matCellDef="let entry" class="action-column">
+      <button mat-icon-button color="primary" aria-label="Editar lançamento" (click)="onEdit(entry)">
         <mat-icon>edit</mat-icon>
       </button>
 

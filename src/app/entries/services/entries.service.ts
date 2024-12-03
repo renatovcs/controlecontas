@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 import { Entry } from '../model/entry';
-import { tap, first, delay } from 'rxjs/operators';
+import { tap, first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,10 @@ export class EntriesService {
       //delay(5000),
       tap(entries => console.log(entries))
     );
+  }
+
+  loadById(id: string) {
+    return this.httpClient.get<Entry>(`${this.API}/${id}`);
   }
 
   save(record: Partial<Entry>) {

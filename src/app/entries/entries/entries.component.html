@@ -7,6 +7,8 @@
     <app-entries-list
       *ngIf="entries$ | async as entries; else loading"
       [entries]="entries"
+      (add)="onAdd()"
+      (edit)="onEdit($event)"
     ></app-entries-list>
 
     <ng-template #loading>

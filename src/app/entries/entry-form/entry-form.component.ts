@@ -3,6 +3,8 @@ import { NonNullableFormBuilder } from '@angular/forms';
 import { EntriesService } from '../services/entries.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Entry } from '../model/entry';
 
 @Component({
   selector: 'app-entry-form',
@@ -13,6 +15,7 @@ import { Location } from '@angular/common';
 export class EntryFormComponent implements OnInit {
 
   form = this.formBuilder.group({
+    _id: [''],
     description: [''],
     category: ['notafiscal'],
     amount: [0],
@@ -24,11 +27,24 @@ export class EntryFormComponent implements OnInit {
   constructor (private readonly formBuilder: NonNullableFormBuilder,
     private readonly service: EntriesService,
     private readonly snackBar: MatSnackBar,
-    private readonly location: Location) {
+    private readonly location: Location,
+    private readonly route: ActivatedRoute
+  ) {
     //this.form
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    const entry: Entry = this.route.snapshot.data['entry'];
+    this.form.setValue({
+      _id: entry._id,
+      description: entry.description,
+      category: entry.category,
+      amount: entry.amount,
+      type: entry.type,
+      currency: entry.currency,
+      eventDate: entry.eventDate,
+    })
+  }
 
   onSubmit() {
     this.service.save(this.form.value)

@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Entry } from '../model/entry';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-entries-list',
@@ -12,18 +11,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EntriesListComponent {
 
   @Input() entries: Entry[] = [];
+  @Output() add = new EventEmitter();
+  @Output() edit = new EventEmitter();
 
   readonly displayedColumns = ['eventDate', 'description', 'category', 'amount', 'actions'];
 
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
-  ) { }
+  constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { /* method 'ngOnInit' is empty */  }
 
   onAdd() {
-    this.router.navigate(['new'], {relativeTo: this.route});
+    this.add.emit(true);
   }
+
+  onEdit(entry: Entry) {
+    this.edit.emit(entry);
+  }
+
 
 }

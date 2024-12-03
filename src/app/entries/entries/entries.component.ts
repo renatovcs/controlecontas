@@ -42,9 +42,13 @@ export class EntriesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { /* method 'ngOnInit' is empty */  }
 
   onAdd() {
     this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  onEdit(entry: Entry) {
+    this.router.navigate(['edit', entry._id], {relativeTo: this.route});
   }
 }
