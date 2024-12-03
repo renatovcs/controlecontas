@@ -21,5 +21,8 @@ export const entryResolver: ResolveFn<Entry> = (route, state) => {
     type: 'DEBIT',
     currency: 'BRL',
     eventDate: new Date(),
+    createdAt: new Date(),
+    deletedAt: null,
+    updatedAt: null,
   };
 };

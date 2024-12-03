@@ -6,6 +6,7 @@ export interface Entry {
   type: string;
   currency: string; //BRL, USD...
   eventDate: Date;
-  //createdAt: Date;
-  //deletedAt: Date;
+  createdAt: Date;
+  deletedAt: Date | null;
+  updatedAt: Date | null;
 }

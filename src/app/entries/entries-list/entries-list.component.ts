@@ -13,6 +13,7 @@ export class EntriesListComponent {
   @Input() entries: Entry[] = [];
   @Output() add = new EventEmitter();
   @Output() edit = new EventEmitter();
+  @Output() remove = new EventEmitter();
 
   readonly displayedColumns = ['eventDate', 'description', 'category', 'amount', 'actions'];
 
@@ -26,6 +27,10 @@ export class EntriesListComponent {
 
   onEdit(entry: Entry) {
     this.edit.emit(entry);
+  }
+
+  onDelete(entry: Entry) {
+    this.remove.emit(entry);
   }
 
 

@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-entries',
@@ -15,7 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EntriesComponent implements OnInit {
 
-  entries$: Observable<Entry[]>;
+  entries$: Observable<Entry[]> | null = null;
   //entries: Entry[] =[];
   //entriesService: EntriesService;
 
@@ -23,10 +24,11 @@ export class EntriesComponent implements OnInit {
     private readonly entriesService: EntriesService,
     public dialog: MatDialog,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
-  ) {
-    //this.entries = []
-    //this.entriesService = new EntriesService();
+    private readonly route: ActivatedRoute,
+    private readonly snackBar: MatSnackBar
+  ) { }
+
+  refresh() {
     this.entries$ = this.entriesService.list()
     .pipe(
       catchError(error => {
@@ -42,7 +44,9 @@ export class EntriesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { /* method 'ngOnInit' is empty */  }
+  ngOnInit(): void {
+    this.refresh();
+  }
 
   onAdd() {
     this.router.navigate(['new'], {relativeTo: this.route});
@@ -50,5 +54,20 @@ export class EntriesComponent implements OnInit {
 
   onEdit(entry: Entry) {
     this.router.navigate(['edit', entry._id], {relativeTo: this.route});
+  }
+
+  onRemove(entry: Entry) {
+    this.entriesService.remove(entry._id).subscribe({
+      next: () => {
+        this.refresh();
+        this.snackBar.open('Lançamento removido com sucesso.', 'X', {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      },
+      error: (error) => this.onError('Erro ao remover lançamento.'),
+      //complete: () => console.log('Remoção concluída.'),
+    });
   }
 }
