@@ -4,12 +4,14 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 import { AppMaterialModule } from './app-material/app-material.module';
 import { CategoryPipe } from './pipes/category.pipe';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     ErrorDialogComponent,
     CategoryPipe,
-    DateFormatPipe
+    DateFormatPipe,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -17,6 +19,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
   ],
   exports: [
     ErrorDialogComponent,
+    ConfirmationDialogComponent,
     CategoryPipe,
     DateFormatPipe,
     AppMaterialModule

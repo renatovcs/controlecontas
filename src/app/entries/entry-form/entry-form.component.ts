@@ -18,7 +18,9 @@ export class EntryFormComponent implements OnInit {
     _id: [''],
     description: [''],
     category: ['notafiscal'],
+    invoiceAccessKey: [''],
     amount: [0],
+    company: ['MADRID'],
     type: ['DEBIT'],
     currency: ['BRL'],
     eventDate: [new Date()]
@@ -39,6 +41,8 @@ export class EntryFormComponent implements OnInit {
       _id: entry._id,
       description: entry.description,
       category: entry.category,
+      invoiceAccessKey: entry.invoiceAccessKey,
+      company: entry.company,
       amount: entry.amount,
       type: entry.type,
       currency: entry.currency,

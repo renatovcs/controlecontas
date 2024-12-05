@@ -25,6 +25,10 @@
       </mat-form-field>
 
       <mat-form-field class="full-width">
+        <input matInput placeholder="Chave de acesso da NF-e" formControlName="invoiceAccessKey">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
         <input matInput placeholder="Valor" formControlName="amount">
       </mat-form-field>
 
@@ -37,10 +41,12 @@
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <mat-label>Moeda</mat-label>
-        <mat-select formControlName="currency">
-          <mat-option value="BRL" selected>R$</mat-option>
-          <mat-option value="USD" disabled>US$</mat-option>
+        <mat-label>Empresa</mat-label>
+        <mat-select formControlName="company">
+          <mat-option value="MADRID" selected>MADRID</mat-option>
+          <mat-option value="GALTEC">GALTEC</mat-option>
+          <mat-option value="INFRAER">INFRAER</mat-option>
+
         </mat-select>
       </mat-form-field>
 

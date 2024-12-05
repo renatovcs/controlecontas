@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
     selector: 'app-entries',
@@ -57,17 +58,25 @@ export class EntriesComponent implements OnInit {
   }
 
   onRemove(entry: Entry) {
-    this.entriesService.remove(entry._id).subscribe({
-      next: () => {
-        this.refresh();
-        this.snackBar.open('Lançamento removido com sucesso.', 'X', {
-          duration: 5000,
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-        });
-      },
-      error: (error) => this.onError('Erro ao remover lançamento.'),
-      //complete: () => console.log('Remoção concluída.'),
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Tem certeza que deseja remover esse lançamento?',
     });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.entriesService.remove(entry._id).subscribe({
+          next: () => {
+            this.refresh();
+            this.snackBar.open('Lançamento removido com sucesso.', 'X', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            });
+          },
+          error: (error) => this.onError('Erro ao remover lançamento.'),
+          //complete: () => console.log('Remoção concluída.'),
+        });
+      }
+    })
   }
 }

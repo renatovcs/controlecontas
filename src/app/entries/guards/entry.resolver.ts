@@ -16,10 +16,12 @@ export const entryResolver: ResolveFn<Entry> = (route, state) => {
   return {
     _id: '',
     description: '',
-    category: '',
+    category: 'notafiscal',
     amount: 0,
     type: 'DEBIT',
+    invoiceAccessKey: '',
     currency: 'BRL',
+    company: 'MADRID',
     eventDate: new Date(),
     createdAt: new Date(),
     deletedAt: null,
