@@ -7,7 +7,11 @@
   <mat-card-content>
     <form [formGroup]="form" class="min-width">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Descrição" formControlName="description">
+        <input matInput placeholder="Descrição" formControlName="description" #description>
+        <mat-hint align="end">{{description.value.length || 0}}/200</mat-hint>
+        @if (form.get('description')?.invalid) {
+          <mat-error>{{errorMessage('description')}}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field class="full-width">
@@ -30,6 +34,9 @@
 
       <mat-form-field class="full-width">
         <input matInput placeholder="Valor" formControlName="amount">
+        @if (form.get('amount')?.invalid) {
+          <mat-error>{{errorMessage('amount')}}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field class="full-width">
@@ -46,7 +53,6 @@
           <mat-option value="MADRID" selected>MADRID</mat-option>
           <mat-option value="GALTEC">GALTEC</mat-option>
           <mat-option value="INFRAER">INFRAER</mat-option>
-
         </mat-select>
       </mat-form-field>
 

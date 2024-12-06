@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder } from '@angular/forms';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { EntriesService } from '../services/entries.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
@@ -16,10 +16,10 @@ export class EntryFormComponent implements OnInit {
 
   form = this.formBuilder.group({
     _id: [''],
-    description: [''],
+    description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
     category: ['notafiscal'],
     invoiceAccessKey: [''],
-    amount: [0],
+    amount: [0, [Validators.required, Validators.min(0.01)]],
     company: ['MADRID'],
     type: ['DEBIT'],
     currency: ['BRL'],
@@ -51,12 +51,18 @@ export class EntryFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.save(this.form.value)
-      .subscribe({
-        next: (result) => this.onSucess(),
-        error: (error) => this.onError(),
-        complete: () => console.log('completo')
-      });
+
+    if (this.form.valid) {
+      this.service.save(this.form.value)
+        .subscribe({
+          next: (result) => this.onSucess(),
+          error: (error) => this.onError(),
+          complete: () => console.log('completo')
+        });
+    } else {
+      this.onError('Campos inválidos.');
+    }
+
   }
 
   onCancel() {
@@ -68,7 +74,32 @@ export class EntryFormComponent implements OnInit {
     this.onCancel();
   }
 
-  private onError() {
-    this.snackBar.open('Erro ao salvar o lançamento.', '', {duration: 5000});
+  private onError(complemento: string = '') {
+    this.snackBar.open(`Erro ao salvar o lançamento. ${complemento}`, '', {duration: 5000});
+  }
+
+  errorMessage(fieldName: string) {
+    const field = this.form.get(fieldName);
+
+    if (field?.hasError('required')) {
+      return 'Campo obrigatório';
+    }
+
+    if (field?.hasError('minlength')) {
+      const requiredLength = field.errors ? field.errors['minlength']['requiredLength'] : 5;
+      return `Tamanho mínimo precisa ser de ${requiredLength} caracteres.`;
+    }
+
+    if (field?.hasError('maxlength')) {
+      const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 100;
+      return `Tamanho máximo excedido de ${requiredLength} caracteres.`;
+    }
+
+    if (field?.hasError('min')) {
+      const requiredLength = field.errors ? field.errors['min']['min'] : 1;
+      return `Valor mínimo de R$ ${requiredLength}.`;
+    }
+
+    return 'Campo inválido';
   }
 }
